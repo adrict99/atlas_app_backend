@@ -9,7 +9,9 @@ interface ExerciseRepository {
 
     fun saveExercise(exercise: Exercise): Exercise
 
-    fun findAllExerciseByWorkoutId(workoutId: Long): List<Exercise>
+    fun saveAllExercises(exercises: List<Exercise>): List<Exercise>
+
+    fun findAllExercisesByWorkoutId(id: Long): List<Exercise>
 
     fun findExerciseById(exerciseId: Long): Exercise
 

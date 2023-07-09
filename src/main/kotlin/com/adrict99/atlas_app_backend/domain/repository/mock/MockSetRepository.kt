@@ -7,15 +7,35 @@ import java.util.*
 
 @Repository
 class MockSetRepository: SetRepository {
-    override fun saveSet(set: Set): Set = set
+    override fun saveSet(set: Set): Set {
+        TODO("Not yet implemented")
+    }
 
-    override fun saveAllSets(sets: List<Set>): List<Set> = sets
+    override fun saveAllSets(sets: List<Set>): List<Set> {
+        TODO("Not yet implemented")
+    }
 
-    override fun findSetById(id: Long): Optional<Set> {
+    override fun findSetById(id: Long): Set {
         TODO("Not yet implemented")
     }
 
     override fun findAllSets(): List<Set> {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateSet(set: Set): Set {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateSetWeightById(id: Long, weight: Double): Set {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateSetRepetitionsById(id: Long, repetitions: Int): Set {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateSetRirById(id: Long, rir: Int): Set {
         TODO("Not yet implemented")
     }
 
@@ -27,9 +47,8 @@ class MockSetRepository: SetRepository {
         TODO("Not yet implemented")
     }
 
-    override fun existsById(id: Long): Boolean {
+    override fun existsRoutineById(id: Long): Boolean {
         TODO("Not yet implemented")
     }
-
 
 }

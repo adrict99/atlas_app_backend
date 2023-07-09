@@ -15,10 +15,6 @@ interface UserRepository {
 
     fun updateUser(user: User): User
 
-    fun updateUserNameById(id: Long, name: String): User
-
-    fun updateUserRoutinesById(id: Long, routines: List<Routine>): User
-
     fun deleteUserById(id: Long): Boolean
 
     fun existsUserById(id: Long): Boolean
