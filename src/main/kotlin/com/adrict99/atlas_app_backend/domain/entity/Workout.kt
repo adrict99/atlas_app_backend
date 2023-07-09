@@ -8,7 +8,6 @@ import javax.validation.constraints.Size
 
 @Entity
 data class Workout(
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

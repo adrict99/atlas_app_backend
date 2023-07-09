@@ -5,7 +5,6 @@ import javax.validation.constraints.*
 
 @Entity
 data class Exercise(
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -19,11 +18,11 @@ data class Exercise(
     @Column(nullable = false)
     var name: String? = null,
 
+    @NotBlank
     @Pattern(
         regexp = "^(\\d+)-(\\d+)$",
         message = "Exercise repetitions range must follow the pattern 'integer-integer'"
     )
-    @NotBlank
     @Column(nullable = false)
     var repRange: String? = null,
 
