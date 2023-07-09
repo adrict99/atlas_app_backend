@@ -18,13 +18,6 @@ import kotlin.reflect.full.memberProperties
 @Service
 class SetService(private val repository: SetRepository) {
 
-    private fun mapEntityToDTO(optionalSet: Optional<Set>) = SetDTO(
-        weight = optionalSet.get().weight,
-        id = optionalSet.get().id,
-        repetitions = optionalSet.get().repetitions,
-        rir = optionalSet.getOrNull()?.rir
-    )
-
     private fun mapEntityToDTO(set: Set) = SetDTO(
         weight = set.weight,
         id = set.id,
@@ -55,7 +48,7 @@ class SetService(private val repository: SetRepository) {
     fun deleteAllSets() = repository.deleteAllSets()
 
     private fun setExistsById(id: Long) {
-        if (!repository.existsById(id)) throw SetNotFoundException("Set with the ID $id does not exist")
+        if (!repository.existsSetById(id)) throw SetNotFoundException("Set with the ID $id does not exist")
     }
 
     fun createSet(request: SetCreateRequest): SetDTO {

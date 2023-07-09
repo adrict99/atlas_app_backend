@@ -27,18 +27,6 @@ class MockSetRepository: SetRepository {
         TODO("Not yet implemented")
     }
 
-    override fun updateSetWeightById(id: Long, weight: Double): Set {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateSetRepetitionsById(id: Long, repetitions: Int): Set {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateSetRirById(id: Long, rir: Int): Set {
-        TODO("Not yet implemented")
-    }
-
     override fun deleteSetById(id: Long): Boolean {
         TODO("Not yet implemented")
     }
@@ -47,7 +35,7 @@ class MockSetRepository: SetRepository {
         TODO("Not yet implemented")
     }
 
-    override fun existsRoutineById(id: Long): Boolean {
+    override fun existsSetById(id: Long): Boolean {
         TODO("Not yet implemented")
     }
 

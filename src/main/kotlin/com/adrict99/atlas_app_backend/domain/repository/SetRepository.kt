@@ -20,6 +20,6 @@ interface SetRepository {
 
     fun deleteAllSets(): Boolean
 
-    fun existsRoutineById(id: Long): Boolean
+    fun existsSetById(id: Long): Boolean
 
 }
