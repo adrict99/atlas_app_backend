@@ -5,14 +5,12 @@ import com.adrict99.atlas_app_backend.domain.entity.Set
 import com.adrict99.atlas_app_backend.presentation.dto.SetDTO
 import com.adrict99.atlas_app_backend.presentation.request.set.SetCreateRequest
 import com.adrict99.atlas_app_backend.presentation.request.set.SetUpdateRequest
-import com.adrict99.atlas_app_backend.presentation.exception.set.SetNotFoundException
+import com.adrict99.atlas_app_backend.presentation.exception.EntityNotFoundException
 import com.adrict99.atlas_app_backend.domain.repository.SetRepository
 import org.springframework.stereotype.Service
 import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Field
-import java.util.*
 import java.util.stream.Collectors
-import kotlin.jvm.optionals.getOrNull
 import kotlin.reflect.full.memberProperties
 
 @Service
@@ -48,7 +46,7 @@ class SetService(private val repository: SetRepository) {
     fun deleteAllSets() = repository.deleteAllSets()
 
     private fun setExistsById(id: Long) {
-        if (!repository.existsSetById(id)) throw SetNotFoundException("Set with the ID $id does not exist")
+        if (!repository.existsSetById(id)) throw EntityNotFoundException("Set with the ID $id does not exist")
     }
 
     fun createSet(request: SetCreateRequest): SetDTO {
