@@ -23,6 +23,13 @@ class SetService(private val repository: SetRepository) {
         rir = set.rir
     )
 
+    private fun Set.toDTO() = SetDTO(
+        weight = this.weight,
+        id = this.id,
+        repetitions = this.repetitions,
+        rir = this.rir
+    )
+
     private fun mapRequestToEntity(set: Set, request: SetCreateRequest) {
         set.weight = request.weight
         set.repetitions = request.repetitions
@@ -31,10 +38,10 @@ class SetService(private val repository: SetRepository) {
 
     fun findSetById(id: Long): SetDTO {
         setExistsById(id)
-        val set: Set = repository.findSetById(id)
-        return mapEntityToDTO(set)
+        return repository.findSetById(id).toDTO()
     }
 
+    //TODO: Check if I can change this mapEntityToDTO to toDTO extension function
     fun findAllSets(): List<SetDTO> =
             repository.findAllSets().stream().map(this::mapEntityToDTO).collect(Collectors.toList())
 
@@ -56,8 +63,7 @@ class SetService(private val repository: SetRepository) {
         val exercise = Exercise( workout = workout)
         val set = Set(exercise = exercise)
         mapRequestToEntity(set, request)
-        val savedSet = repository.saveSet(set)
-        return mapEntityToDTO(savedSet)
+        return repository.saveSet(set).toDTO()
     }
 
     fun updateSet(id: Long, request: SetUpdateRequest): SetDTO {
@@ -73,8 +79,7 @@ class SetService(private val repository: SetRepository) {
                 }
             }
         }
-        val savedSet = repository.saveSet(existingSet)
-        return mapEntityToDTO(savedSet)
+        return repository.saveSet(existingSet).toDTO()
     }
 
 }
