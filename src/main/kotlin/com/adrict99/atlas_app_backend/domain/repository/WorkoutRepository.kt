@@ -8,8 +8,6 @@ interface WorkoutRepository {
 
     fun saveWorkout(workout: Workout): Workout
 
-    fun saveAllWorkouts(workouts: List<Workout>): List<Workout>
-
     fun findAllWorkoutsByRoutineId(id: Long): List<Workout>
 
     fun findWorkoutById(id: Long): Workout

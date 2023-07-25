@@ -9,9 +9,12 @@ data class SetCreateRequest(
         message = "Weight must be greater than 0.0"
     ) val weight: Double? = null,
 
-    @Min(value = 1, message = "Repetitions must be greater than 0") val repetitions: Int? = null,
+    @Min(value = 1, message = "Repetitions must be greater than 0")
+    val repetitions: Int? = null,
 
-    @Max(value = 10) @Min(value = 0) val rir: Int? = null,
+    @Max(value = 10) @Min(value = 0)
+    val rir: Int? = null,
 
-    val exerciseId: Long? = null
+    @NotNull
+    val exerciseId: Long
 )

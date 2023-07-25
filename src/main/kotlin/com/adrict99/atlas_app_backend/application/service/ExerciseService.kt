@@ -6,58 +6,39 @@ import com.adrict99.atlas_app_backend.presentation.dto.ExerciseDTO
 import com.adrict99.atlas_app_backend.presentation.exception.EntityNotFoundException
 import com.adrict99.atlas_app_backend.presentation.request.exercise.ExerciseCreateRequest
 import com.adrict99.atlas_app_backend.presentation.request.exercise.ExerciseUpdateRequest
+import com.adrict99.atlas_app_backend.util.extensions.toExerciseDTO
+import com.adrict99.atlas_app_backend.util.extensions.toExerciseDTOMutableList
+import com.adrict99.atlas_app_backend.util.extensions.toWorkout
 import org.springframework.stereotype.Service
 import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Field
-import java.util.stream.Collectors
 import kotlin.reflect.full.memberProperties
 
 @Service
-class ExerciseService(private val repository: ExerciseRepository) {
+class ExerciseService(
+        private val repository: ExerciseRepository,
+        private val workoutService: WorkoutService
+) {
 
-    //TODO: Check what to do with sets & workout
-    private fun mapEntityToDTO(exercise: Exercise) = ExerciseDTO(
-        id = exercise.id,
-        name = exercise.name,
-        repRange = exercise.repRange,
-        targetNumberOfSets = exercise.targetNumberOfSets,
-        //sets = exercise.sets,
-        //workout = exercise.workout,
-        notes = exercise.notes
-    )
-
-    private fun mapRequestToEntity(exercise: Exercise, request: ExerciseCreateRequest) {
-        exercise.name = request.name
-        exercise.repRange = request.repRange
-        exercise.targetNumberOfSets = request.targetNumberOfSets
-        exercise.notes = request.notes
+    fun createExercise(request: ExerciseCreateRequest): ExerciseDTO {
+        val workoutDTO = workoutService.findWorkoutById(request.workoutId)
+        val exercise = Exercise(
+                name = request.name,
+                repRange = request.repRange,
+                targetNumberOfSets = request.targetNumberOfSets,
+                workout = workoutDTO.toWorkout()
+        )
+        return repository.saveExercise(exercise).toExerciseDTO()
     }
 
-    //TODO: Check what to do with exercise dependency
-    fun saveExercise(request: ExerciseCreateRequest): ExerciseDTO {
-        val exercise = Exercise()
-        mapRequestToEntity(exercise, request = request)
-        val newExercise = repository.saveExercise(exercise = exercise)
-        return mapEntityToDTO(newExercise)
+    fun findAllExercisesByWorkoutId(workoutId: Long): MutableList<ExerciseDTO> {
+        workoutService.findWorkoutById(workoutId)
+        return repository.findAllExercisesByWorkoutId(workoutId).toExerciseDTOMutableList()
     }
 
-    //TODO: Check what to do with exercise dependency
-    fun saveAllExercises(requests: List<ExerciseCreateRequest>): List<ExerciseDTO> {
-        val exercisesList = listOf<Exercise>()
-        requests.map {
-            mapRequestToEntity(exercise = Exercise(), request = it)
-        }
-        val newExercises = repository.saveAllExercises(exercisesList)
-        return newExercises.map { mapEntityToDTO(it) }
-    }
-
-    fun findAllExercisesByWorkoutId(id: Long): List<ExerciseDTO> =
-        repository.findAllExercisesByWorkoutId(id).stream().map(this::mapEntityToDTO).collect(Collectors.toList())
-
-    fun findExerciseById(id: Long): ExerciseDTO {
-        exerciseExistsById(id)
-        val exercise: Exercise = repository.findExerciseById(id)
-        return mapEntityToDTO(exercise)
+    fun findExerciseById(exerciseId: Long): ExerciseDTO {
+        repository.existsExerciseById(exerciseId)
+        return repository.findExerciseById(exerciseId).toExerciseDTO()
     }
 
     fun updateExercise(id: Long, request: ExerciseUpdateRequest): ExerciseDTO {
@@ -73,12 +54,16 @@ class ExerciseService(private val repository: ExerciseRepository) {
                 }
             }
         }
-        val savedSet = repository.saveExercise(existingExercise)
-        return mapEntityToDTO(savedSet)
+        return repository.updateExercise(existingExercise).toExerciseDTO()
     }
 
-    private fun exerciseExistsById(id: Long) {
-        if (!repository.existsExerciseById(id)) throw EntityNotFoundException("Exercise with the ID $id does not exist")
+    fun deleteExerciseById(exerciseId: Long) {
+        exerciseExistsById(exerciseId)
+        repository.deleteExerciseById(exerciseId)
+    }
+
+    private fun exerciseExistsById(exerciseId: Long) {
+        if (!repository.existsExerciseById(exerciseId)) throw EntityNotFoundException("Exercise with the ID $exerciseId does not exist")
     }
 
 }

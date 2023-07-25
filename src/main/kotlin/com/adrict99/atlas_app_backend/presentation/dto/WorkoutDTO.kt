@@ -4,6 +4,6 @@ data class WorkoutDTO(
     val id: Long? = null,
     val name: String? = null,
     val exercises: MutableList<ExerciseDTO>? = null,
-    val routine: RoutineDTO? = null,
+    val routine: RoutineDTO,
     val notes: String? = null
 )

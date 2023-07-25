@@ -17,31 +17,29 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/sets")
 class SetController(private val service: SetService) {
 
-    @GetMapping("all-sets")
-    fun getAllSets(): ResponseEntity<List<SetDTO>> = ResponseEntity(service.findAllSets(), HttpStatus.OK)
-
-    @GetMapping("set/{id}")
-    fun getSetById(@PathVariable id: Long): ResponseEntity<SetDTO> =
-            ResponseEntity(service.findSetById(id), HttpStatus.OK)
-
-    @PostMapping("create")
+    @PostMapping
     fun createSet(
-        @Valid @RequestBody request: SetCreateRequest
+            @Valid @RequestBody request: SetCreateRequest
     ): ResponseEntity<SetDTO> = ResponseEntity(service.createSet(request), HttpStatus.OK)
 
-    @PatchMapping("update/{id}")
+    @GetMapping("/{exerciseId}")
+    fun getAllSetsByExerciseId(@PathVariable exerciseId: Long): ResponseEntity<List<SetDTO>> =
+            ResponseEntity(service.findAllSetsByExerciseId(exerciseId), HttpStatus.OK)
+
+    @GetMapping("/{setId}")
+    fun getSetById(@PathVariable setId: Long): ResponseEntity<SetDTO> =
+            ResponseEntity(service.findSetById(setId), HttpStatus.OK)
+
+    @PatchMapping("/{setId}")
     fun updateSet(
-        @PathVariable id: Long,
+        @PathVariable setId: Long,
         @Valid @RequestBody request: SetUpdateRequest
-    ): ResponseEntity<SetDTO> = ResponseEntity(service.updateSet(id, request), HttpStatus.OK)
+    ): ResponseEntity<SetDTO> = ResponseEntity(service.updateSet(setId, request), HttpStatus.OK)
 
-    @DeleteMapping("delete/{id}")
-    fun deleteSet(@PathVariable id: Long) = ResponseEntity(service.deleteSetById(id), HttpStatus.OK)
-
-    @DeleteMapping("delete-all")
-    fun deleteAllSets() = ResponseEntity(service.deleteAllSets(), HttpStatus.OK)
+    @DeleteMapping("/{setId}")
+    fun deleteSet(@PathVariable setId: Long) = ResponseEntity(service.deleteSetById(setId), HttpStatus.OK)
 
 }

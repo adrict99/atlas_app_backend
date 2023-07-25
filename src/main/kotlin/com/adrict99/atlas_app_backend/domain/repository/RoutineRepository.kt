@@ -8,8 +8,6 @@ interface RoutineRepository {
 
     fun saveRoutine(routine: Routine): Routine
 
-    fun saveAllRoutines(routines: List<Routine>): List<Routine>
-
     fun findAllRoutinesByUserId(id: Long): List<Routine>
 
     fun findRoutineById(id: Long): Routine

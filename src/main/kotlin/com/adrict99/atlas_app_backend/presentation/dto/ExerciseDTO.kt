@@ -6,6 +6,6 @@ data class ExerciseDTO(
     val repRange: String? = null,
     val targetNumberOfSets: Int? = null,
     val sets: MutableList<SetDTO>? = null,
-    val workout: WorkoutDTO? = null,
+    val workout: WorkoutDTO,
     val notes: String? = null
 )

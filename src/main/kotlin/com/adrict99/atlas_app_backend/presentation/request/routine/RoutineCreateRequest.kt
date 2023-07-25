@@ -13,7 +13,7 @@ data class RoutineCreateRequest(
     val name: String?,
 
     @NotNull
-    val userId: Long?,
+    val userId: Long,
 
     @Size(max = 100, message = "Routine description must contain a maximum of 100 characters")
     @Pattern(

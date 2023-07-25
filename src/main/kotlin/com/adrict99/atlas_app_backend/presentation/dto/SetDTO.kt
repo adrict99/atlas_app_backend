@@ -5,5 +5,5 @@ data class SetDTO(
     val weight: Double? = null,
     val repetitions: Int? = null,
     val rir: Int? = null,
-    val exercise: ExerciseDTO? = null
+    val exercise: ExerciseDTO
 )

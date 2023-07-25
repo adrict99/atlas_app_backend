@@ -19,13 +19,13 @@ data class User(
                 message = "User name can only contain letters and compound names characters"
         )
         @Column(nullable = false)
-        val name: String? = null,
+        var name: String? = null,
 
         @NotBlank
         @Email
         @Size(max = 64, message = "Email name must contain a maximum of 64 characters")
         @Column(nullable = false)
-        val email: String? = null,
+        var email: String? = null,
 
         @NotBlank
         @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")
@@ -34,7 +34,7 @@ data class User(
                 message = "Password must contain at least one digit, one lowercase letter, one uppercase letter, one special character, and no whitespace"
         )
         @Column(nullable = false)
-        val password: String? = null,
+        var password: String? = null,
 
         @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
         val routines: MutableList<Routine> = mutableListOf()

@@ -13,7 +13,7 @@ data class WorkoutCreateRequest(
     val name: String?,
 
     @NotNull
-    val routineId: Long?,
+    val routineId: Long,
 
     @Size(max = 100, message = "Workout notes must contain a maximum of 100 characters")
     @Pattern(

@@ -1,6 +1,7 @@
 package com.adrict99.atlas_app_backend.presentation.request.exercise
 
 import javax.validation.constraints.Min
+import javax.validation.constraints.NotNull
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
@@ -10,6 +11,9 @@ data class ExerciseCreateRequest(
 
     @Pattern(regexp = "^(\\d+)-(\\d+)$", message = "Exercise repetitions range must follow the pattern 'integer-integer'")
     val repRange: String?,
+
+    @NotNull
+    val workoutId: Long,
 
     @Min(value = 1, message = "Exercise number of target sets must be greater than 0")
     val targetNumberOfSets: Int?,
