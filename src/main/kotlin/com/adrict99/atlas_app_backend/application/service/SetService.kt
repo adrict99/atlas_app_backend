@@ -28,7 +28,7 @@ class SetService(
                 rir = request.rir,
                 exercise = exerciseDTO.toExercise()
         )
-        return repository.saveSet(set).toSetDTO()
+        return repository.save(set).toSetDTO()
     }
 
     fun findAllSetsByExerciseId(exerciseId: Long): MutableList<SetDTO> {
@@ -54,12 +54,12 @@ class SetService(
                 }
             }
         }
-        return repository.updateSet(existingSet).toSetDTO()
+        return repository.save(existingSet).toSetDTO()
     }
 
     fun deleteSetById(setId: Long) {
         setExistsById(setId)
-        repository.deleteSetById(setId)
+        repository.deleteById(setId)
     }
 
     private fun setExistsById(setId: Long) {
