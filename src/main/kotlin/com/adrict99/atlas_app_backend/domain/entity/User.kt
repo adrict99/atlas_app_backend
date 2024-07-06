@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size
 
 @Entity
+@Table(name = "users")
 data class User(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
