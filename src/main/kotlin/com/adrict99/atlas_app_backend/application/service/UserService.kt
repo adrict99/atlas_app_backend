@@ -21,7 +21,7 @@ class UserService(private val repository: UserRepository) {
             email = request.email,
             password = request.password
         )
-        val newUser = repository.saveUser(user)
+        val newUser = repository.save(user)
         return newUser.toUserDTO()
     }
 
@@ -43,12 +43,12 @@ class UserService(private val repository: UserRepository) {
                 }
             }
         }
-        return repository.updateUser(existingUser).toUserDTO()
+        return repository.save(existingUser).toUserDTO()
     }
 
     fun deleteUserById(id: Long) {
         userExistsById(id)
-        repository.deleteUserById(id)
+        repository.deleteById(id)
     }
 
     private fun userExistsById(id: Long) {

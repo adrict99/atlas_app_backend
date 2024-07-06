@@ -9,6 +9,7 @@ import com.adrict99.atlas_app_backend.presentation.request.exercise.ExerciseUpda
 import com.adrict99.atlas_app_backend.util.extensions.toExerciseDTO
 import com.adrict99.atlas_app_backend.util.extensions.toExerciseDTOMutableList
 import com.adrict99.atlas_app_backend.util.extensions.toWorkout
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.util.ReflectionUtils
 import java.lang.reflect.Field
@@ -28,7 +29,7 @@ class ExerciseService(
                 targetNumberOfSets = request.targetNumberOfSets,
                 workout = workoutDTO.toWorkout()
         )
-        return repository.saveExercise(exercise).toExerciseDTO()
+        return repository.save(exercise).toExerciseDTO()
     }
 
     fun findAllExercisesByWorkoutId(workoutId: Long): MutableList<ExerciseDTO> {
@@ -54,12 +55,12 @@ class ExerciseService(
                 }
             }
         }
-        return repository.updateExercise(existingExercise).toExerciseDTO()
+        return repository.save(existingExercise).toExerciseDTO()
     }
 
     fun deleteExerciseById(exerciseId: Long) {
         exerciseExistsById(exerciseId)
-        repository.deleteExerciseById(exerciseId)
+        repository.deleteById(exerciseId)
     }
 
     private fun exerciseExistsById(exerciseId: Long) {

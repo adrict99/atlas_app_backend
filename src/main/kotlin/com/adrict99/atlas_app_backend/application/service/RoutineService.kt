@@ -23,7 +23,7 @@ class RoutineService(
     fun createRoutine(request: RoutineCreateRequest): RoutineDTO {
         val userDTO = userService.findUserById(request.userId)
         val routine = Routine(name = request.name, user = userDTO.toUser(), description = request.description)
-        return repository.saveRoutine(routine).toRoutineDTO()
+        return repository.save(routine).toRoutineDTO()
     }
 
     fun findAllRoutinesByUserId(userId: Long): MutableList<RoutineDTO> {
@@ -49,12 +49,12 @@ class RoutineService(
                 }
             }
         }
-        return repository.updateRoutine(existingRoutine).toRoutineDTO()
+        return repository.save(existingRoutine).toRoutineDTO()
     }
 
     fun deleteRoutineById(routineId: Long) {
         routineExistsById(routineId)
-        repository.deleteRoutineById(routineId)
+        repository.deleteById(routineId)
     }
 
     private fun routineExistsById(id: Long) {

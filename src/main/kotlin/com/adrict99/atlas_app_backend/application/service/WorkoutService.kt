@@ -23,7 +23,7 @@ class WorkoutService(
     fun createWorkout(request: WorkoutCreateRequest): WorkoutDTO {
         val routineDTO = routineService.findRoutineById(request.routineId)
         val workout = Workout(name = request.name, routine = routineDTO.toRoutine(), notes = request.notes)
-        return repository.saveWorkout(workout).toWorkoutDTO()
+        return repository.save(workout).toWorkoutDTO()
     }
 
     fun findAllWorkoutsByRoutineId(routineId: Long): MutableList<WorkoutDTO> {
@@ -49,12 +49,12 @@ class WorkoutService(
                 }
             }
         }
-        return repository.updateWorkout(existingWorkout).toWorkoutDTO()
+        return repository.save(existingWorkout).toWorkoutDTO()
     }
 
     fun deleteWorkoutById(workoutId: Long) {
         workoutExistsById(workoutId)
-        repository.deleteWorkoutById(workoutId)
+        repository.deleteById(workoutId)
     }
 
     private fun workoutExistsById(workoutId: Long) {
