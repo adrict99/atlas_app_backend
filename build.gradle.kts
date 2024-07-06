@@ -29,6 +29,9 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("org.postgresql:postgresql")
 
+	//swagger
+	implementation("org.springdoc:springdoc-openapi-ui:1.7.0")
+
 	//Testing
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.assertj:assertj-core:3.23.1")
